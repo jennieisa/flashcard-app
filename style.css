@@ -41,8 +41,13 @@ p {
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+.cardsContainer .theCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
-.frontPage, .backPage {
+ .frontPage, .backPage {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -56,7 +61,7 @@ p {
     padding: 5px;
 }
 
-.backPage {
+div.backPage {
     background-color: rgb(174, 226, 174);
 }
 
@@ -69,5 +74,9 @@ p {
     height: 28px;
     background-color: white;
     border-radius: 30px;
+}
+
+.hidden {
+    display: none;
 }
 

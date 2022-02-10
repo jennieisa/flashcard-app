@@ -24,7 +24,6 @@ function addCardsToLocalStorage() {
     })
 
     localStorage.setItem("cards", JSON.stringify(allCardsObject));
-    console.log(allCardsObject);
 }
 
 //Funktion som ritar ut korten för användaren
@@ -34,20 +33,24 @@ function writeTheCards() {
 
     allCardsObject.forEach((item, index) => {
         result += `
-        <div class="frontPage ${index}">
-            <p class="wichSide">Front page</p>
-            <p>${item.frontpage}</p>
-            <button class="turnCard">Turn the card</button>
-        </div>
-        <div class="backPage ${index}">
-            <p class="wichSide">Back page</p>
-            <p>${item.backpage}</p>
-            <button class="turnCard">Turn the card</button>
+        <div class="theCard">
+            <div class="frontPage ${index}">
+                <p class="wichSide">Front page</p>
+                <p>${item.frontpage}</p>
+                <button class="turnCard frontPageBtn ${index}">Turn the card</button>
+            </div>
+            <div class="backPage ${index} hidden">
+                <p class="wichSide">Back page</p>
+                <p>${item.backpage}</p>
+                <button class="turnCard backPageBtn ${index}">Turn the card</button>
+            </div>
         </div>
     `
     })
 
     containerWithCards.innerHTML= result;
+
+    turnCard(); //Kör funktionen så att turnCard funkar
 }
 
 //Funktion som körs när vi klickar på knappen
@@ -58,8 +61,67 @@ saveButton.addEventListener("click", (e) => {
 
     writeTheCards();
 
+    inputFieldBackPage.value = "";
+    inputFieldFrontPage.value = "";
+
 })
 
+function turnCard() {
+    const turnCardButton = document.querySelectorAll(".turnCard");
+
+    turnCardButton.forEach(btn =>  {
+        btn.addEventListener("click", (e) => {
+
+            const buttonClassPage = e.target.classList[1];
+            //Hämtar knappens klass för sida den är på
+            const buttonClassIndex = e.target.classList[2];
+            //Hämtar knappens index för vilket kort den är på
+
+            const allCardsElem = document.querySelectorAll(".theCard");
+            //Hämtar alla kort 
+
+            const rightCardElem = allCardsElem[buttonClassIndex];
+            //Hämtar det kortet som har knappens klass index
+
+            const rightCardFrontPage = rightCardElem.childNodes[1];
+            //Hämtar framsidan på rätt kort
+
+            const rightCardBackPage = rightCardElem.childNodes[3];
+            //Hämtar baksidan på rätt kort
+
+
+            if (buttonClassPage == "frontPageBtn") {
+                   
+                if (rightCardBackPage.classList.contains("hidden")) {
+
+                    rightCardBackPage.classList.remove("hidden");
+                    rightCardFrontPage.classList.add("hidden");
+
+                } else {
+
+                    rightCardFrontPage.classList.add("hidden");
+
+                }
+
+            } else {
+
+                if (rightCardFrontPage.classList.contains("hidden")) {
+
+                    rightCardFrontPage.classList.remove("hidden");
+                    rightCardBackPage.classList.add("hidden");
+
+                } else {
+
+                    rightCardBackPage.classList.add("hidden");
+                    
+                }
+            }
+            
+        })
+    })
+}
+
+//Om localstorage innehåller "cards" så rita upp korten som finns
 if (localStorage.getItem("cards")) {
     writeTheCards();
 }
