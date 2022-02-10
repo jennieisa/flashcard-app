@@ -10,9 +10,13 @@
     text-align: center;
 }
 
-label, p {
+label {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .inputFields { 
@@ -26,6 +30,9 @@ label, p {
     height: 30px;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 1px 5px 5px gray;
+    border-radius: 30px;
+    background-color: white;
 }
 
 .cardsContainer {
@@ -35,9 +42,32 @@ label, p {
     flex-wrap: wrap;
 }
 
-.cardsContainer div {
-    width: 50px;
-    height: 50px;
-    background-color: red;
+.frontPage, .backPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: pink;
+    border: solid 1px gray;
+    box-shadow: 1px 5px 5px gray;
     margin: 10px;
+    text-align: center;
+    width: 150px;
+    height: 170px;
+    padding: 5px;
 }
+
+.backPage {
+    background-color: rgb(174, 226, 174);
+}
+
+.wichSide {
+    font-size: 10px;
+    align-self:flex-end;
+}
+
+.turnCard {
+    height: 28px;
+    background-color: white;
+    border-radius: 30px;
+}
+
