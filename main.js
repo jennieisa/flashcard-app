@@ -16,8 +16,8 @@ let flashcardInfo = {
 };
 
 //Funktion som sparar användarns input i local storage i JSON format
-function addCardsToLocalStorage() {
-
+function addCardsToLocalStorage(validityCallback) {
+    
     allCardsObject.push(flashcardInfo = {
         frontpage: inputFieldFrontPage.value,
         backpage: inputFieldBackPage.value
@@ -51,19 +51,29 @@ function writeTheCards() {
     containerWithCards.innerHTML= result;
 
     turnCard(); //Kör funktionen så att turnCard funkar
+
+    const noCardsParagraph = document.querySelector(".noCards");
+    noCardsParagraph.classList.add("hidden");
 }
 
 //Funktion som körs när vi klickar på knappen
 saveButton.addEventListener("click", (e) => {
+
     e.preventDefault();
+    
+    if (!inputFieldBackPage.value == "") {
+    
+        addCardsToLocalStorage();
+        
+        writeTheCards();
+        
+        
+        inputFieldBackPage.value = "";
+        inputFieldFrontPage.value = "";
 
-    addCardsToLocalStorage();
-
-    writeTheCards();
-
-    inputFieldBackPage.value = "";
-    inputFieldFrontPage.value = "";
-
+    } else {
+        alert("You have to type in something in both fields.")
+    }
 })
 
 function turnCard() {
@@ -125,3 +135,4 @@ function turnCard() {
 if (localStorage.getItem("cards")) {
     writeTheCards();
 }
+
